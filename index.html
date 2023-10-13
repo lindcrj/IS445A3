@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vega-Lite Visualization</title>
-</head>
-<body>
-  <div id="vis"></div>
-
+  <title>My GitHub Pages Visualization</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  <script src="your-vega-lite-spec.json"></script>
-
-  <!-- Embed the visualization -->
+</head>
+<body>
+  <!-- Container for your visualization -->
+  <div id="vis"></div>
+  
   <script>
-    // Assuming your-vega-lite-spec.json contains your Vega-Lite specification
-    const vegaLiteSpec = require('./your-vega-lite-spec.json');
-  
-    // Assuming 'vis' is the ID of the div where you want to render the visualization
-    const div = document.getElementById('vis');
-  
-    // Embed the visualization in the 'vis' div
-    vegaEmbed(div, vegaLiteSpec);
+    // Load the Vega-Lite JSON from your GitHub repository
+    fetch('https://raw.githubusercontent.com/lindcrj/lindcrj.github.io/main/vegalite_visualization.json')
+      .then(response => response.json())
+      .then(spec => {
+        // Get a reference to the container div
+        var container = document.getElementById('vis');
+
+        // Embed the Vega-Lite visualization in the container
+        vegaEmbed(container, spec, { actions: true });
+      })
+      .catch(error => {
+        console.error('Error loading JSON:', error);
+      });
   </script>
 </body>
 </html>
